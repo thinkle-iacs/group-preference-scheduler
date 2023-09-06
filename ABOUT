@@ -1,0 +1,15 @@
+I'm rewriting a scheduler I wrote and lost in python 5+ years ago.
+
+Here are my email notes on my work:
+
+In case you're curious, here's the current algorithm:
+
+1. Start by slotting in groups of mutual friends (where they all want to be w/ each other)
+2. Now fill in the gaps by adding kids who want to be w/ one of the members of the cabin to the cabins.
+3. Where we can't do that, try adding any mutual pairs we can (so you have two friends + three other, unrelated friends, e.g.)
+4. Worst case, just shove kids in cabins where they don't fit.
+5. Now, grab all the kids who have no friends, look at their requests, and evaluate possible swaps that would get them any of their requests.
+6. When that fails, start evaluating random swaps for each kid and make any swap that makes things the same or better.
+7. Repeat 6 1000 times or so and usually we find improvements :)
+
+This time we'll try implementing this thing in JavaScript. It will probably land in a Google Apps Script repo but I'd rather just implement in pure-JS to get started for speed of development and preferred IDE experience.
