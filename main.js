@@ -5,64 +5,8 @@ import { scoreGroup } from "./analyze.js";
 
 const i = new Interface();
 console.log("Generated me some students: ", students);
-console.log("hmm");
-console.log(
-  "Names: ",
-  students.map((s) => s.name)
-);
 console.log("Generated preferences", preferences);
-console.log("whaaa");
 
-const s = {
-  alice: { id: 1, name: "Alice", email: "Alice@" },
-  bob: { id: 2, name: "Bob", email: "Bob@" },
-  charlie: { id: 3, name: "Charlie", email: "Charlie@" },
-  david: { id: 4, name: "David", email: "David@" },
-  eve: { id: 5, name: "Eve", email: "eve@" },
-  frank: { id: 6, name: "Frank", email: "frnak@" },
-  grace: { id: 7, name: "Grace", email: "Grace@" },
-  howard: { id: 8, name: "Howard", email: "Howard@" },
-  moses: { id: 9, name: "Moses", email: "Moses@" },
-};
-
-let quickprefs = [
-  {
-    student: s.alice,
-    keepWith: [s.bob, s.charlie, s.frank, s.moses],
-    separateFrom: [],
-  },
-  {
-    student: s.bob,
-    keepWith: [s.alice, s.charlie, s.moses],
-    separateFrom: [s.eve],
-  },
-  {
-    student: s.charlie,
-    keepWith: [s.alice, s.frank, s.bob, s.moses],
-    separateFrom: [],
-  },
-  { student: s.david, keepWith: [s.frank], separateFrom: [s.moses] },
-  {
-    student: s.eve,
-    keepWith: [s.grace, s.frank, s.moses],
-    separateFrom: [s.howard, s.alice],
-  },
-  { student: s.grace, keepWith: [s.eve, s.bob, s.frank], separateFrom: [] },
-  {
-    student: s.frank,
-    keepWith: [s.grace, s.eve, s.david, s.bob, s.charlie, s.alice],
-    separateFrom: [],
-  },
-  { student: s.howard, keepWith: [s.grace, s.eve], separateFrom: [s.charlie] },
-  { student: s.moses, keepWith: [s.alice, s.charlie, s.eve], separateFrom: [] },
-];
-
-let mutualGroups = findMutualGroups(preferences);
-/* for (let g of mutualGroups) {
-  i.writeText('Group of '+g.length);
-  i.writeObject(g.map((s)=>s.email));
-}
- */
 function placeStudentsInBins(
   prefs,
   binSizes = [20, 20, 15, 10, 10, 10, 8, 8, 8, 5]
@@ -121,7 +65,6 @@ function placeStudentsInBins(
       }
     );
     console.log('Sorted prefs:',prefsToPlace);
-    debugger;
     let toPlace = prefsToPlace.pop();
     let bin = findBestBin(toPlace.student).bin;
     if (bin) {
@@ -130,22 +73,6 @@ function placeStudentsInBins(
       overflow.push(toPlace.student);
     }
   } while (prefsToPlace && prefsToPlace.length)
-
-
-  /* for (let p of prefs) {
-    let student = p.student;
-    if (placedStudents.includes(student)) {
-      continue;
-    } else {
-      // Otherwise...
-      let bin = findBestBin(student).bin;
-      if (bin) {
-        bin.students.push(student);
-      } else {
-        overflow.push(student);
-      }
-    }
-  } */
 
   return [...bins, { name: "OVERFLOW", students: overflow }];
 
