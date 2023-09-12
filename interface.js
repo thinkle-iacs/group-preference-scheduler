@@ -17,6 +17,10 @@ export class Interface {
     this.outEl.appendChild(div);
   }
 
+  append (element) {
+    this.outEl.appendChild(element);
+  }
+
   writeObject (json) {
     let pre = document.createElement('pre');
     pre.innerText = JSON.stringify(json,null, "  ");
